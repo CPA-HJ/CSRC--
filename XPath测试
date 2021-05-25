@@ -1,0 +1,13 @@
+from lxml import etree
+import io
+import sys
+import pandas as pd
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='utf8') 
+html = etree.parse('./test.html', etree.HTMLParser())
+result = html.xpath('//ul[@id="myul"]/li/a/text()')
+print(type(result))
+print(result)
+head=['新闻标题']
+d = pd.DataFrame(result,columns = head)
+d.index += 1 
+d.to_csv('d:\csrc-test.csv',mode='a',encoding='gbk')
